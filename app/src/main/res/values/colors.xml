@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!--        BASIC COLOR PALETTE      -->
+    <color name="secondary_background">#006666</color>
+    <color name="primary_background">#013936</color>
+    <color name="accent">#FFD700</color>
+    <color name="neutral_dark">#333333</color>
+    <color name="neutral_light">#FAFAFA</color>
+    <color name="shade_accent">#B29600</color>
+
+    <!--        BLUE COLOR PALETTE      -->
+    <color name="primary_blue">#0088FF</color>
+    <color name="dark_blue">#1C4587</color>
+    <color name="light_blue">#EAF4FF</color>
+    <color name="sky_blue">#B3D4FC</color>
+    <color name="hover_blue">#1565C0</color>
+
+    <!--        TEXT COLOR PALETTE      -->
+    <color name="soft_white">#FAFAFA</color>
+    <color name="light_grey">#F2F2F2</color>
+    <color name="medium_gray">#BDBDBD</color>
+    <color name="for_text">#333333</color>
+
+    <!--        NOTIFICATION COLOR PALETTE      -->
+    <color name="success_green">#27AE60</color>
+    <color name="warning_yellow">#F2C94C</color>
+    <color name="error_red">#EB5757</color>
+    <color name="info_blue">#56CCF2</color>
+
+
+</resources>
