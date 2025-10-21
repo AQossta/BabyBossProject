@@ -23,11 +23,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            app:dotsColor=""
+            app:dotsColor="@color/neutral_light"
+            app:dotsSize="8dp"
+            app:dotsSpacing="6dp"
+            app:dotsWidthFactor="2.5"
+            app:selectedDotColor="@color/accent"/>
+        
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNextOnboardingFragment"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/background_button_24dp_circle"
+            android:backgroundTint="@color/accent"
+            android:textColor="@color/neutral_dark"
+            android:text="НАЧАТЬ"
+            android:textAllCaps="false"
+            android:textSize="14dp"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:textStyle="normal"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginHorizontal="16dp"/>
 
     </LinearLayout>
-
-
-
 
 </FrameLayout>
