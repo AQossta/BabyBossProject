@@ -23,6 +23,8 @@
     <color name="light_grey">#F2F2F2</color>
     <color name="medium_gray">#BDBDBD</color>
     <color name="for_text">#333333</color>
+    <color name="grey">#D1D1D1</color>
+    <color name="grey_text_button">#666F7C</color>
 
     <!--        NOTIFICATION COLOR PALETTE      -->
     <color name="success_green">#27AE60</color>

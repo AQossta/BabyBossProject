@@ -82,4 +82,9 @@ dependencies {
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
 
     implementation ("com.kyleduo.switchbutton:library:2.1.0")
+
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation ("com.googlecode.libphonenumber:libphonenumber:8.13.17")
 }

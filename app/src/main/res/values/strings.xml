@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Baby Boss</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">
+        Hello blank fragment</string>
+    <string name="agreement_text">
+    Нажимая кнопку «Далее», вы даете согласие на \n
+    <font color="#006666"> Сбор и обработку персональных данных </font>,
+    <font color="#006666"> Политику конфиденциальности </font>
+    и соглашаетесь с
+    <font color="#006666"> Условиями пользовательского соглашения</font>
+</string>
 </resources>
