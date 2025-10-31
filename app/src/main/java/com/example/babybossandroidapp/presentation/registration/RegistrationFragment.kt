@@ -50,7 +50,7 @@ class RegistrationFragment : Fragment() {
 
     private fun validatePhoneNumber(phoneNumber: String) {
         val isPhoneValid = isKazakhstanPhoneNumberValid(phoneNumber)
-        // Эта проверка теперь используется только для навигации, но не для активации кнопки
+        // проверка для навигации
     }
 
     private fun isKazakhstanPhoneNumberValid(phoneNumber: String): Boolean {
@@ -62,18 +62,24 @@ class RegistrationFragment : Fragment() {
         }
     }
 
+//    private fun updateNextButtonState(isEnabled: Boolean) {
+//        binding.btnRegister.isEnabled = isEnabled
+//
+//        if (isEnabled) {
+//            binding.btnRegister.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+//            binding.btnRegister.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_button_24dp_action)
+//        } else {
+//            binding.btnRegister.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_text_button))
+//            binding.btnRegister.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_button_24dp_action)
+//        }
+//    }
+
     private fun updateNextButtonState(isEnabled: Boolean) {
         binding.btnRegister.isEnabled = isEnabled
-
-        if (isEnabled) {
-            binding.btnRegister.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondary_background))
-            // Или если используете drawable:
-            // binding.btnRegister.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_button_green)
-        } else {
-            binding.btnRegister.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey))
-            // Или если используете drawable:
-            // binding.btnRegister.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_button_grey)
-        }
+        binding.btnRegister.backgroundTintList = ContextCompat.getColorStateList(
+            requireContext(),
+            if (isEnabled) R.color.secondary_background else R.color.grey
+        )
     }
 
     private fun setupNextButton() {

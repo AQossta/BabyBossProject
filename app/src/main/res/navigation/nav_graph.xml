@@ -39,5 +39,13 @@
         <argument
             android:name="phoneNumber"
             app:argType="string" />
+        <action
+            android:id="@+id/action_registrationCodeFragment_to_registrationDataFragment"
+            app:destination="@id/registrationDataFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/registrationDataFragment"
+        android:name="com.example.babybossandroidapp.presentation.registration_data.RegistrationDataFragment"
+        android:label="fragment_registration_data"
+        tools:layout="@layout/fragment_registration_data" />
 </navigation>

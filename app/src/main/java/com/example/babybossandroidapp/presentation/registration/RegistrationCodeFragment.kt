@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.babybossandroidapp.R
 import com.example.babybossandroidapp.databinding.FragmentRegistrationCodeBinding
 
@@ -177,8 +178,7 @@ class RegistrationCodeFragment : Fragment() {
     }
 
     private fun navigateToNextScreen() {
-        // TODO: Переход на следующий экран после успешной регистрации
-        // findNavController().navigate(R.id.action_to_next_fragment)
+         findNavController().navigate(R.id.action_registrationCodeFragment_to_registrationDataFragment)
 
         // Временное сообщение
         Toast.makeText(requireContext(), "Код верный! Регистрация успешна", Toast.LENGTH_SHORT).show()
