@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Введите ваше имя"
+            android:text="Способ оплаты"
             android:textSize="28dp"
             android:fontFamily="@font/roboto_bold"
             android:textStyle="bold"
@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Для завершения регистрации введите \nваше имя"
+            android:text="Добавьте карту для совершения оплаты"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_regular"
             android:textStyle="normal"
@@ -32,63 +32,100 @@
             android:textColor="@color/grey_text_button"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nameInputLayout"
+            android:id="@+id/cardNumberInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/background_edittext_top_8dp_light_blue"
+            android:background="@drawable/background_edittext_8dp_light_blue"
             app:hintEnabled="true"
             app:hintAnimationEnabled="true"
             app:boxBackgroundMode="none">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nameEditText"
+                android:id="@+id/cardNumberEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Имя"
+                android:hint="Номер карты"
                 android:fontFamily="@font/roboto_regular"
                 android:textStyle="normal"
                 android:textColor="@color/grey_text_button"
-                android:inputType="textPersonName"
+                android:inputType="number"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/validityPeriodInputLayout"
+            android:layout_width="182dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/background_edittext_8dp_light_blue"
+            app:hintEnabled="true"
+            app:hintAnimationEnabled="true"
+            app:boxBackgroundMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/validityPeriodEditText"
+                android:layout_width="182dp"
+                android:layout_height="56dp"
+                android:hint="Срок действия"
+                android:fontFamily="@font/roboto_regular"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:textColor="@color/grey_text_button"
+                android:inputType="number"
                 android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/surnameInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:background="@drawable/background_edittext_bottom_8dp_light_blue"
+            android:id="@+id/svvInputLayout"
+            android:layout_width="182dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/background_edittext_8dp_light_blue"
             app:hintEnabled="true"
             app:hintAnimationEnabled="true"
             app:boxBackgroundMode="none">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/surnameEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Фамилия"
+                android:id="@+id/svvEditText"
+                android:layout_width="182dp"
+                android:layout_height="56dp"
+                android:hint="CVV/CVC"
                 android:fontFamily="@font/roboto_regular"
                 android:textStyle="normal"
+                android:gravity="center"
                 android:textColor="@color/grey_text_button"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnNextData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="410dp"
-            android:background="@drawable/background_button_24dp_focus"
-            android:text="ДАЛЕЕ"
-            android:textColor="@color/neutral_light"
-            android:fontFamily="@font/roboto_bold"
-            android:textSize="14dp"
+            android:layout_marginBottom="55dp"
+            android:background="@drawable/background_button_24dp_action"
+            android:backgroundTint="@color/grey"
+            android:fontFamily="@font/roboto_medium"
+            android:enabled="false"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="ДОБАВИТЬ КАРТУ"
             android:textAllCaps="false"
-            android:gravity="center"/>
+            android:textSize="14dp"
+            android:textColor="@color/grey_text_button"/>
 
     </LinearLayout>
 
