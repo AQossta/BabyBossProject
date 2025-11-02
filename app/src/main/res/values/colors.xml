@@ -2,6 +2,19 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="fui_transparent">#00000000</color>
+
+    <!--          GREY          -->
+    <color name="grey_50">#F9FAFB</color>
+    <color name="grey_100">#F3F4F6</color>
+    <color name="grey_200">#E5E7EB</color>
+    <color name="grey_300">#D1D5DB</color>
+    <color name="grey_400">#9CA3AF</color>
+    <color name="grey_500">#6B7280</color>
+    <color name="grey_600">#4B5563</color>
+    <color name="grey_700">#374151</color>
+    <color name="grey_800">#1F2937</color>
+    <color name="grey_900">#111827</color>
 
     <!--        BASIC COLOR PALETTE      -->
     <color name="secondary_background">#006666</color>

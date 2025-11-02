@@ -31,7 +31,7 @@ class RegistrationPaymentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupTextWatchers()
         setupClickListeners()
-        updateButtonState()
+        updateButtonState(false)
     }
 
     private fun setupTextWatchers() {
@@ -39,12 +39,11 @@ class RegistrationPaymentFragment : Fragment() {
         binding.validityPeriodEditText.addTextChangedListener(ValidityPeriodTextWatcher())
         binding.svvEditText.addTextChangedListener(SvvTextWatcher())
 
-        // Общий слушатель для проверки заполненности полей
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                updateButtonState()
+                updateButtonState(isFormValid())
             }
         }
 
@@ -54,24 +53,25 @@ class RegistrationPaymentFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        binding.btnNextData.setOnClickListener {
+        binding.btnNextPayment.setOnClickListener {
             if (isFormValid()) {
                 addCard()
             }
         }
     }
 
-    private fun updateButtonState() {
-        val isValid = isFormValid()
-        binding.btnNextData.isEnabled = isValid
-
-        if (isValid) {
-            binding.btnNextData.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.secondary_background)
-            binding.btnNextData.setTextColor(ContextCompat.getColor(requireContext(), R.color.neutral_light))
-        } else {
-            binding.btnNextData.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.grey)
-            binding.btnNextData.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_text_button))
-        }
+    private fun updateButtonState(isEnabled: Boolean) {
+        binding.btnNextPayment.isEnabled = isEnabled
+        binding.btnNextPayment.backgroundTintList = ContextCompat.getColorStateList(
+            requireContext(),
+            if (isEnabled) R.color.secondary_background else R.color.grey
+        )
+        binding.btnNextPayment.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                if (isEnabled) R.color.neutral_light else R.color.grey_text_button
+            )
+        )
     }
 
     private fun isFormValid(): Boolean {
@@ -89,24 +89,24 @@ class RegistrationPaymentFragment : Fragment() {
         val validityPeriod = binding.validityPeriodEditText.text.toString()
         val svv = binding.svvEditText.text.toString()
 
-        // Здесь логика добавления карты
         Toast.makeText(requireContext(), "Карта успешно добавлена!", Toast.LENGTH_SHORT).show()
-
-        // Переход назад или к следующему экрану
-        findNavController().popBackStack()
+        findNavController().navigate(R.id.action_registrationPaymentFragment_to_addAChildFragment)
     }
 
-    // TextWatcher для номера карты (форматирование 4-4-4-4)
     private inner class CardNumberTextWatcher : TextWatcher {
         private var isFormatting = false
+        private var deleteLastChar = false
 
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            deleteLastChar = (count > after)
+        }
+
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
         override fun afterTextChanged(s: Editable?) {
             if (isFormatting) return
-
             isFormatting = true
+
             val text = s.toString().replace(" ", "")
             if (text.length <= 16) {
                 val formatted = StringBuilder()
@@ -117,13 +117,50 @@ class RegistrationPaymentFragment : Fragment() {
                     formatted.append(text[i])
                 }
                 s?.replace(0, s.length, formatted.toString())
+
+                if (text.length == 16 && !deleteLastChar) {
+                    binding.validityPeriodEditText.requestFocus()
+                }
             }
             isFormatting = false
         }
     }
 
-    // TextWatcher для срока действия (форматирование ММ/ГГ)
     private inner class ValidityPeriodTextWatcher : TextWatcher {
+        private var isFormatting = false
+        private var lastLength = 0
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            lastLength = s?.length ?: 0
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+        override fun afterTextChanged(s: Editable?) {
+            if (isFormatting) return
+            isFormatting = true
+
+            val currentText = s.toString()
+            val cleanText = currentText.replace("/", "")
+
+            // Автоматически добавляем / после 2 цифр
+            if (cleanText.length == 2 && lastLength < 2) {
+                s?.replace(0, currentText.length, "$cleanText/")
+            }
+            // Форматируем как ММ/ГГ при 4 цифрах
+            else if (cleanText.length == 4) {
+                s?.replace(0, currentText.length, "${cleanText.substring(0, 2)}/${cleanText.substring(2)}")
+            }
+            // Ограничиваем 4 цифрами
+            else if (cleanText.length > 4) {
+                s?.replace(0, currentText.length, "${cleanText.substring(0, 2)}/${cleanText.substring(2, 4)}")
+            }
+
+            isFormatting = false
+        }
+    }
+
+    private inner class SvvTextWatcher : TextWatcher {
         private var isFormatting = false
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -131,32 +168,18 @@ class RegistrationPaymentFragment : Fragment() {
 
         override fun afterTextChanged(s: Editable?) {
             if (isFormatting) return
-
             isFormatting = true
-            val text = s.toString().replace("/", "")
-            if (text.length == 1 && text.toInt() > 1) {
-                s?.replace(0, s.length, "0$text/")
-            } else if (text.length == 2) {
-                val month = text.toIntOrNull()
-                if (month != null && month in 1..12) {
-                    s?.replace(0, s.length, "$text/")
-                }
-            } else if (text.length == 4) {
-                s?.replace(0, s.length, "${text.substring(0, 2)}/${text.substring(2)}")
-            }
-            isFormatting = false
-        }
-    }
 
-    // TextWatcher для CVV (ограничение 3 символа)
-    private inner class SvvTextWatcher : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-        override fun afterTextChanged(s: Editable?) {
             if (s?.length ?: 0 > 3) {
                 s?.delete(3, s.length)
             }
+
+            val digitsOnly = s.toString().filter { it.isDigit() }
+            if (digitsOnly != s.toString()) {
+                s?.replace(0, s.length, digitsOnly)
+            }
+
+            isFormatting = false
         }
     }
 

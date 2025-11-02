@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.example.babybossandroidapp.R
 import com.example.babybossandroidapp.databinding.FragmentRegistrationDataBinding
 
 class RegistrationDataFragment : Fragment() {
@@ -55,6 +57,7 @@ class RegistrationDataFragment : Fragment() {
     }
 
     private fun proceedToNextStep(name: String, surname: String) {
+        findNavController().navigate(R.id.action_registrationDataFragment_to_registrationPaymentFragment)
         Toast.makeText(requireContext(), "Имя: $name, Фамилия: $surname", Toast.LENGTH_SHORT).show()
     }
 

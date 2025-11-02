@@ -1,10 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.add_child.AddAChildFragment">
 
+    <include
+        android:id="@+id/toolbar_profile"
+        layout="@layout/toolbar_title_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/linearLayoutTextTvAddAChild"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="271dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_profile">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_black"
+            android:text="Добавьте ребёнка"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/neutral_dark"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Чтобы мы могли всё организовать — просто \nдобавьте данные ребёнка. Это займёт всего \nпару минут."
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/grey_text_button"
+            android:textSize="16dp"
+            android:fontFamily="@font/roboto_regular"
+            android:textStyle="normal"/>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAddAChild"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="410dp"
+        android:background="@drawable/background_button_24dp_focus"
+        android:text="ДАЛЕЕ"
+        android:textColor="@color/neutral_light"
+        android:fontFamily="@font/roboto_bold"
+        android:textSize="14dp"
+        android:textAllCaps="false"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="@+id/linearLayoutTextTvAddAChild"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

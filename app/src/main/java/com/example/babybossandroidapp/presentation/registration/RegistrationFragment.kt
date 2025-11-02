@@ -1,13 +1,19 @@
 package com.example.babybossandroidapp.presentation.registration
 
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextPaint
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.text.set
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.babybossandroidapp.R
 import com.example.babybossandroidapp.databinding.FragmentRegistrationBinding
@@ -29,6 +35,7 @@ class RegistrationFragment : Fragment() {
         phoneUtil = PhoneNumberUtil.getInstance()
         setupPhoneNumberInput()
         setupNextButton()
+        setupClickableAgreementText()
         updateNextButtonState(false)
     }
 
@@ -62,23 +69,17 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-//    private fun updateNextButtonState(isEnabled: Boolean) {
-//        binding.btnRegister.isEnabled = isEnabled
-//
-//        if (isEnabled) {
-//            binding.btnRegister.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-//            binding.btnRegister.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_button_24dp_action)
-//        } else {
-//            binding.btnRegister.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_text_button))
-//            binding.btnRegister.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_button_24dp_action)
-//        }
-//    }
-
     private fun updateNextButtonState(isEnabled: Boolean) {
         binding.btnRegister.isEnabled = isEnabled
         binding.btnRegister.backgroundTintList = ContextCompat.getColorStateList(
             requireContext(),
             if (isEnabled) R.color.secondary_background else R.color.grey
+        )
+        binding.btnRegister.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                if (isEnabled) R.color.neutral_light else R.color.grey_text_button
+            )
         )
     }
 
@@ -97,5 +98,55 @@ class RegistrationFragment : Fragment() {
     private fun navigateToCodeFragment(phoneNumber: String) {
         val action = RegistrationFragmentDirections.actionRegistrationFragmentToRegistrationCodeFragment(phoneNumber)
         findNavController().navigate(action)
+    }
+
+    private fun setupClickableAgreementText() {
+        val fullText = "Нажимая кнопку «Далее», вы даете согласие на" +
+                "\nСбор и обработку персональных данных, Политику конфиденциальности и соглашаетесь с Условиями пользовательского соглашения"
+
+        val spannableString = SpannableString(fullText)
+
+        // Сбор и обработку персональных данных
+        val personalDataStart = fullText.indexOf("Сбор и обработку персональных данных")
+        val personalDataEnd = personalDataStart + "Сбор и обработку персональных данных".length
+        setClickableSpan(spannableString, personalDataStart, personalDataEnd, "personal_data")
+
+        // Политику конфиденциальности
+        val privacyStart = fullText.indexOf("Политику конфиденциальности")
+        val privacyEnd = privacyStart + "Политику конфиденциальности".length
+        setClickableSpan(spannableString, privacyStart, privacyEnd, "privacy_policy")
+
+        // Условиями пользовательского соглашения
+        val termsStart = fullText.indexOf("Условиями пользовательского соглашения")
+        val termsEnd = termsStart + "Условиями пользовательского соглашения".length
+        setClickableSpan(spannableString, termsStart, termsEnd, "user_agreement")
+
+        binding.txtAgreement.text = spannableString
+        binding.txtAgreement.movementMethod = LinkMovementMethod.getInstance()
+        binding.txtAgreement.highlightColor = android.graphics.Color.TRANSPARENT
+    }
+
+    private fun setClickableSpan(spannableString: SpannableString, start: Int, end: Int, type: String) {
+        spannableString.setSpan(
+            object : android.text.style.ClickableSpan() {
+                override fun onClick(widget: View) {
+                    navigateToAgreement(type)
+                }
+                override fun updateDrawState(ds: TextPaint) {
+                    ds.color = ContextCompat.getColor(requireContext(), R.color.secondary_background)
+                    ds.isUnderlineText = false
+                }
+            },
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
+
+    private fun navigateToAgreement(type: String) {
+        val bundle = Bundle().apply {
+            putString("agreement_type", type)
+        }
+        findNavController().navigate(R.id.action_registrationFragment_to_agreementFragment, bundle)
     }
 }

@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_registrationFragment_to_registrationCodeFragment"
             app:destination="@id/registrationCodeFragment" />
+        <action
+            android:id="@+id/action_registrationFragment_to_agreementFragment"
+            app:destination="@id/agreementFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationCodeFragment"
@@ -47,5 +50,32 @@
         android:id="@+id/registrationDataFragment"
         android:name="com.example.babybossandroidapp.presentation.registration_data.RegistrationDataFragment"
         android:label="fragment_registration_data"
-        tools:layout="@layout/fragment_registration_data" />
+        tools:layout="@layout/fragment_registration_data" >
+        <action
+            android:id="@+id/action_registrationDataFragment_to_registrationPaymentFragment"
+            app:destination="@id/registrationPaymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAChildFragment"
+        android:name="com.example.babybossandroidapp.presentation.add_child.AddAChildFragment"
+        android:label="fragment_add_a_child"
+        tools:layout="@layout/fragment_add_a_child" />
+    <fragment
+        android:id="@+id/agreementFragment"
+        android:name="com.example.babybossandroidapp.presentation.agreement.AgreementFragment"
+        android:label="fragment_agreement"
+        tools:layout="@layout/fragment_agreement" >
+        <action
+            android:id="@+id/action_agreementFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationPaymentFragment"
+        android:name="com.example.babybossandroidapp.presentation.registration_payment.RegistrationPaymentFragment"
+        android:label="fragment_registration_payment"
+        tools:layout="@layout/fragment_registration_payment" >
+        <action
+            android:id="@+id/action_registrationPaymentFragment_to_addAChildFragment"
+            app:destination="@id/addAChildFragment" />
+    </fragment>
 </navigation>

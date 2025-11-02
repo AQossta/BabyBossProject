@@ -62,8 +62,8 @@ class RegistrationCodeFragment : Fragment() {
                 isTimerFinished = true
                 binding.btnNextCode.text = "ПОЛУЧИТЬ КОД ПОВТОРНО"
                 binding.btnNextCode.isEnabled = true
-                binding.btnNextCode.setTextColor(ContextCompat.getColor(requireContext(), R.color.secondary_background))
-                binding.btnNextCode.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_button_24dp_focus)
+                binding.btnNextCode.setTextColor(ContextCompat.getColor(requireContext(), R.color.neutral_light))
+                binding.btnNextCode.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.secondary_background)
             }
         }.start()
     }
@@ -180,7 +180,6 @@ class RegistrationCodeFragment : Fragment() {
     private fun navigateToNextScreen() {
          findNavController().navigate(R.id.action_registrationCodeFragment_to_registrationDataFragment)
 
-        // Временное сообщение
         Toast.makeText(requireContext(), "Код верный! Регистрация успешна", Toast.LENGTH_SHORT).show()
     }
 
