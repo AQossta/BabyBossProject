@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.addi_child_data.AddingAChildDataFragment">
+
+    <include
+        android:id="@+id/toolbarBackAddChildData"
+        layout="@layout/toolbar_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutAddChildData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarBackAddChildData">
+
+        <TextView
+            android:id="@+id/tvTextNameAndAgeChild"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_black"
+            android:gravity="center"
+            android:text="Введите имя \nи возраст ребёнка"
+            android:textAllCaps="false"
+            android:textColor="@color/neutral_dark"
+            android:textSize="28dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/firstNameInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/background_edittext_top_8dp_light_blue"
+                app:boxBackgroundMode="none"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/firstNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="Имя"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:textColor="@color/grey_text_button"
+                    android:textStyle="normal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lastNameInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/background_edittext_0dp_light_blue"
+                app:boxBackgroundMode="none"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lastNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="Имя"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:textColor="@color/grey_text_button"
+                    android:textStyle="normal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ageChildInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/background_edittext_bottom_8dp_light_blue"
+                app:boxBackgroundMode="none"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ageChildEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="Фамилия"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:textColor="@color/grey_text_button"
+                    android:textStyle="normal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAddAChildData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="310dp"
+        android:background="@drawable/background_button_24dp_action"
+        android:backgroundTint="@color/grey"
+        android:fontFamily="@font/roboto_medium"
+        android:enabled="false"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="ДАЛЕЕ"
+        android:textAllCaps="false"
+        android:textSize="14dp"
+        android:textColor="@color/grey_text_button"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutAddChildData"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

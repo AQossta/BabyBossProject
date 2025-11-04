@@ -32,6 +32,7 @@ class RegistrationPaymentFragment : Fragment() {
         setupTextWatchers()
         setupClickListeners()
         updateButtonState(false)
+        addCard()
     }
 
     private fun setupTextWatchers() {
@@ -143,15 +144,14 @@ class RegistrationPaymentFragment : Fragment() {
             val currentText = s.toString()
             val cleanText = currentText.replace("/", "")
 
-            // Автоматически добавляем / после 2 цифр
             if (cleanText.length == 2 && lastLength < 2) {
                 s?.replace(0, currentText.length, "$cleanText/")
             }
-            // Форматируем как ММ/ГГ при 4 цифрах
+
             else if (cleanText.length == 4) {
                 s?.replace(0, currentText.length, "${cleanText.substring(0, 2)}/${cleanText.substring(2)}")
             }
-            // Ограничиваем 4 цифрами
+
             else if (cleanText.length > 4) {
                 s?.replace(0, currentText.length, "${cleanText.substring(0, 2)}/${cleanText.substring(2, 4)}")
             }

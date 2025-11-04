@@ -59,7 +59,11 @@
         android:id="@+id/addAChildFragment"
         android:name="com.example.babybossandroidapp.presentation.add_child.AddAChildFragment"
         android:label="fragment_add_a_child"
-        tools:layout="@layout/fragment_add_a_child" />
+        tools:layout="@layout/fragment_add_a_child" >
+        <action
+            android:id="@+id/action_addAChildFragment_to_addingAChildDataFragment"
+            app:destination="@id/addingAChildDataFragment" />
+    </fragment>
     <fragment
         android:id="@+id/agreementFragment"
         android:name="com.example.babybossandroidapp.presentation.agreement.AgreementFragment"
@@ -78,4 +82,27 @@
             android:id="@+id/action_registrationPaymentFragment_to_addAChildFragment"
             app:destination="@id/addAChildFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addingAChildDataFragment"
+        android:name="com.example.babybossandroidapp.presentation.addi_child_data.AddingAChildDataFragment"
+        android:label="fragment_adding_a_child_data"
+        tools:layout="@layout/fragment_adding_a_child_data" >
+        <action
+            android:id="@+id/action_addingAChildDataFragment_to_addPhotoChildFragment"
+            app:destination="@id/addPhotoChildFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPhotoChildFragment"
+        android:name="com.example.babybossandroidapp.presentation.add_photo_child.AddPhotoChildFragment"
+        android:label="fragment_add_photo_child"
+        tools:layout="@layout/fragment_add_photo_child" >
+        <action
+            android:id="@+id/action_addPhotoChildFragment_to_tariffFragment"
+            app:destination="@id/tariffFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tariffFragment"
+        android:name="com.example.babybossandroidapp.presentation.select_tariff.TariffFragment"
+        android:label="fragment_tariff"
+        tools:layout="@layout/fragment_tariff" />
 </navigation>

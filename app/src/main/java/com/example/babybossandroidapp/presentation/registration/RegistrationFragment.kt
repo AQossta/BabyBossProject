@@ -106,17 +106,14 @@ class RegistrationFragment : Fragment() {
 
         val spannableString = SpannableString(fullText)
 
-        // Сбор и обработку персональных данных
         val personalDataStart = fullText.indexOf("Сбор и обработку персональных данных")
         val personalDataEnd = personalDataStart + "Сбор и обработку персональных данных".length
         setClickableSpan(spannableString, personalDataStart, personalDataEnd, "personal_data")
 
-        // Политику конфиденциальности
         val privacyStart = fullText.indexOf("Политику конфиденциальности")
         val privacyEnd = privacyStart + "Политику конфиденциальности".length
         setClickableSpan(spannableString, privacyStart, privacyEnd, "privacy_policy")
 
-        // Условиями пользовательского соглашения
         val termsStart = fullText.indexOf("Условиями пользовательского соглашения")
         val termsEnd = termsStart + "Условиями пользовательского соглашения".length
         setClickableSpan(spannableString, termsStart, termsEnd, "user_agreement")
