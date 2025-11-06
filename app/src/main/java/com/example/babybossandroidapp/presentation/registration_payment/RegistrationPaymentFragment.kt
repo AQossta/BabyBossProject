@@ -32,7 +32,6 @@ class RegistrationPaymentFragment : Fragment() {
         setupTextWatchers()
         setupClickListeners()
         updateButtonState(false)
-        addCard()
     }
 
     private fun setupTextWatchers() {
@@ -81,7 +80,7 @@ class RegistrationPaymentFragment : Fragment() {
         val svv = binding.svvEditText.text.toString()
 
         return cardNumber.length == 16 &&
-                validityPeriod.length == 5 &&
+                validityPeriod.length == 5 && validityPeriod.contains("/") &&
                 svv.length == 3
     }
 
@@ -90,18 +89,14 @@ class RegistrationPaymentFragment : Fragment() {
         val validityPeriod = binding.validityPeriodEditText.text.toString()
         val svv = binding.svvEditText.text.toString()
 
-        Toast.makeText(requireContext(), "Карта успешно добавлена!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "КАРТА УСПЕШНО ДОБАВЛЕНА", Toast.LENGTH_SHORT).show()
         findNavController().navigate(R.id.action_registrationPaymentFragment_to_addAChildFragment)
     }
 
     private inner class CardNumberTextWatcher : TextWatcher {
         private var isFormatting = false
-        private var deleteLastChar = false
 
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            deleteLastChar = (count > after)
-        }
-
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
         override fun afterTextChanged(s: Editable?) {
@@ -119,22 +114,23 @@ class RegistrationPaymentFragment : Fragment() {
                 }
                 s?.replace(0, s.length, formatted.toString())
 
-                if (text.length == 16 && !deleteLastChar) {
+                // Автопереход при полном вводе
+                if (text.length == 16) {
                     binding.validityPeriodEditText.requestFocus()
                 }
+            } else {
+                // Обрезаем лишние символы
+                s?.delete(19, s.length)
             }
+
             isFormatting = false
         }
     }
 
     private inner class ValidityPeriodTextWatcher : TextWatcher {
         private var isFormatting = false
-        private var lastLength = 0
 
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            lastLength = s?.length ?: 0
-        }
-
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
         override fun afterTextChanged(s: Editable?) {
@@ -142,18 +138,24 @@ class RegistrationPaymentFragment : Fragment() {
             isFormatting = true
 
             val currentText = s.toString()
-            val cleanText = currentText.replace("/", "")
+            val cleanText = currentText.replace("/", "").filter { it.isDigit() }
 
-            if (cleanText.length == 2 && lastLength < 2) {
-                s?.replace(0, currentText.length, "$cleanText/")
+            // Ограничиваем максимум 4 цифрами
+            val limitedText = if (cleanText.length > 4) cleanText.substring(0, 4) else cleanText
+
+            val formatted = when {
+                limitedText.isEmpty() -> ""
+                limitedText.length <= 2 -> limitedText
+                else -> "${limitedText.substring(0, 2)}/${limitedText.substring(2)}"
             }
 
-            else if (cleanText.length == 4) {
-                s?.replace(0, currentText.length, "${cleanText.substring(0, 2)}/${cleanText.substring(2)}")
-            }
+            if (formatted != currentText) {
+                s?.replace(0, currentText.length, formatted)
 
-            else if (cleanText.length > 4) {
-                s?.replace(0, currentText.length, "${cleanText.substring(0, 2)}/${cleanText.substring(2, 4)}")
+                // Автопереход при полном вводе
+                if (formatted.length == 5) {
+                    binding.svvEditText.requestFocus()
+                }
             }
 
             isFormatting = false
@@ -170,13 +172,14 @@ class RegistrationPaymentFragment : Fragment() {
             if (isFormatting) return
             isFormatting = true
 
-            if (s?.length ?: 0 > 3) {
-                s?.delete(3, s.length)
-            }
-
             val digitsOnly = s.toString().filter { it.isDigit() }
-            if (digitsOnly != s.toString()) {
-                s?.replace(0, s.length, digitsOnly)
+
+            if (digitsOnly.length <= 3) {
+                if (digitsOnly != s.toString()) {
+                    s?.replace(0, s.length, digitsOnly)
+                }
+            } else {
+                s?.replace(0, s.length, digitsOnly.substring(0, 3))
             }
 
             isFormatting = false

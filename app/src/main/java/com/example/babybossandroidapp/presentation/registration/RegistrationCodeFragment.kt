@@ -1,5 +1,6 @@
 package com.example.babybossandroidapp.presentation.registration
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -24,7 +25,7 @@ class RegistrationCodeFragment : Fragment() {
     private lateinit var binding: FragmentRegistrationCodeBinding
     private val correctCode = "12345"
     private lateinit var codeEditTexts: List<EditText>
-    private var countDownTimer: CountDownTimer? =  null
+    private var countDownTimer: CountDownTimer? = null
     private var isTimerFinished = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -39,6 +40,13 @@ class RegistrationCodeFragment : Fragment() {
         setupResendCodeButton()
         applyInitialCodeDesign()
         startTimer()
+        changeNumber()
+    }
+
+    private fun changeNumber() {
+        binding.changeNumberPhone.setOnClickListener{
+            findNavController().navigate(R.id.action_registrationCodeFragment_to_registrationFragment)
+        }
     }
 
     override fun onDestroyView() {
@@ -50,11 +58,12 @@ class RegistrationCodeFragment : Fragment() {
         isTimerFinished = false
         binding.btnNextCode.isEnabled = false
         binding.btnNextCode.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_text_button))
+        binding.btnNextCode.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.grey)
 
         countDownTimer = object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = millisUntilFinished / 1000
-                val timeText = String.format("Отправить код повторно (%02d:%02d)", seconds / 60, seconds % 60)
+                val timeText = String.format("ПОЛУЧИТЬ КОД ПОВТОРНО %02d:%02d", seconds / 60, seconds % 60)
                 binding.btnNextCode.text = timeText
             }
 
@@ -90,13 +99,10 @@ class RegistrationCodeFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 val text = s.toString()
                 if (text.isNotEmpty()) {
-
                     if (currentIndex < codeEditTexts.size - 1) {
                         codeEditTexts[currentIndex + 1].requestFocus()
                     }
-
                     updateCodeFieldDesign(currentIndex, true)
-
                     checkCompleteCode()
                 } else {
                     updateCodeFieldDesign(currentIndex, false)
@@ -109,7 +115,6 @@ class RegistrationCodeFragment : Fragment() {
         return View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_DOWN) {
                 if (codeEditTexts[currentIndex].text.isEmpty() && currentIndex > 0) {
-
                     codeEditTexts[currentIndex - 1].requestFocus()
                     codeEditTexts[currentIndex - 1].text.clear()
                 }
@@ -178,8 +183,7 @@ class RegistrationCodeFragment : Fragment() {
     }
 
     private fun navigateToNextScreen() {
-         findNavController().navigate(R.id.action_registrationCodeFragment_to_registrationDataFragment)
-
+        findNavController().navigate(R.id.action_registrationCodeFragment_to_registrationDataFragment)
         Toast.makeText(requireContext(), "Код верный! Регистрация успешна", Toast.LENGTH_SHORT).show()
     }
 
@@ -187,9 +191,7 @@ class RegistrationCodeFragment : Fragment() {
         binding.btnNextCode.setOnClickListener {
             if (isTimerFinished) {
                 Toast.makeText(requireContext(), "Код отправлен повторно", Toast.LENGTH_SHORT).show()
-
                 startTimer()
-
                 clearAllCodeFields()
                 applyInitialCodeDesign()
                 hideError()
